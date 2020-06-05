@@ -17,7 +17,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import org.threeten.bp.LocalDate;
+
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 
@@ -96,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isEmptyAccNumber()) {
             valid = false;
             etAccNumber.setError("Account number can't be empty!");
+        } else {
+            if (!isAccNumberValid()) {
+                valid = false;
+                etAccNumber.setError("Account number should start from 0");
+            }
         }
 
         if (!isSaluteSelected()) {
@@ -141,6 +149,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean isEmptyAccNumber() {
         return isEmptyEditText(etAccNumber);
+    }
+
+    private boolean isAccNumberValid() {
+        String accNumber = etAccNumber.getText().toString();
+        return accNumber.startsWith("0");
     }
 
     private boolean isSaluteSelected() {
@@ -190,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Details details = createDetails();
+                                    System.out.println(details.toString());
                                     Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
                                     intent.putExtra("details", details);
                                     startActivity(intent);
@@ -211,8 +225,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etSalute.setText("");
         etFirstName.setText("");
         etLastName.setText("");
-        Calendar calendar = Calendar.getInstance();
-        dpDob.updateDate(calendar.getTime().getYear(), calendar.getTime().getMonth(), calendar.getTime().getDay());
+        LocalDate date = LocalDate.now();
+        dpDob.updateDate(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
         etPhoneNumber.setText("");
         etEmail.setText("");
         etAddress.setText("");
