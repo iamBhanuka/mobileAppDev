@@ -129,4 +129,22 @@ public class Details implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Details{" +
+                "nic='" + nic + '\'' +
+                ", accNumber='" + accNumber + '\'' +
+                ", salute1='" + salute1 + '\'' +
+                ", getSalute2='" + getSalute2 + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dobYear=" + dobYear +
+                ", dobMonth=" + dobMonth +
+                ", dobDay=" + dobDay +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
