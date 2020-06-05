@@ -38,6 +38,7 @@ public class Details implements Serializable {
         return nic;
     }
 
+
     public void setNic(String nic) {
         this.nic = nic;
     }
