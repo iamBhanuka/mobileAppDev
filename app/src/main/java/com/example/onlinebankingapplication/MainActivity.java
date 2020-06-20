@@ -203,10 +203,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Details details = createDetails();
-                                    System.out.println(details.toString());
-                                    Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                                    intent.putExtra("details", details);
-                                    startActivity(intent);
+//                                    System.out.println(details.toString());
+//                                    Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+//                                    intent.putExtra("details", details);
+//                                    startActivity(intent);
+                                    startService(details);
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null)
@@ -248,5 +249,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return new Details(nic, accNumber, salute1, salute2, firstName, lastName, dobYear, dobMonth, dobDay, phoneNumber, email, address);
 
+    }
+
+    private void startService(Details details) {
+        Intent serviceIntent = new Intent(this, Postmaster.class);
+        Bundle data = new Bundle();
+        data.putSerializable("details", details);
+        serviceIntent.putExtras(data);
+        startService(serviceIntent);
     }
 }
